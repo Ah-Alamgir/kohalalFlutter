@@ -2,7 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:text_scanner/providers/common.dart';
+import 'package:text_scanner/providers/providers.dart';
 
 class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
