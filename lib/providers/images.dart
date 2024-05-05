@@ -17,10 +17,13 @@ class ImagePickerController extends _$ImagePickerController {
     final XFile? image = await picker.pickImage(
       source: ImageSource.gallery,
     );
+
     if (image == null) {
-      throw Exception('No image selected');
+      // User cancelled image selection
+      return null;
     }
-    // Add your validation logic here
+    
+    
     return image;
   }
 }

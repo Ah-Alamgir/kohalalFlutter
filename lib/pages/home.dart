@@ -18,21 +18,15 @@ class HomePage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Text Scanner'),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.menu,
-          ),
-        ),
       ),
-      body: asyncImageController.when(
-        data: (data) {
-          if (data == null) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-              ),
-              child: Column(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+        ),
+        child: asyncImageController.when(
+          data: (data) {
+            if (data == null) {
+              return Column(
                 children: [
                   Card(
                     elevation: .5,
@@ -75,15 +69,10 @@ class HomePage extends HookConsumerWidget {
                     ),
                   ),
                 ],
-              ),
-            );
-          }
+              );
+            }
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-            ),
-            child: Column(
+            return Column(
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .7,
@@ -147,118 +136,118 @@ class HomePage extends HookConsumerWidget {
                   ),
                 ),
               ],
-            ),
-          );
-        },
-        error: (error, stackTrace) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-            ),
-            child: Column(
-              children: [
-                Card(
-                  elevation: .5,
-                  child: InkWell(
-                    onTap: () async {
-                      await ref
-                          .read(imagePickerControllerProvider.notifier)
-                          .pickImage();
-                    },
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * .7,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        primary: false,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              FluentIcons.warning_20_regular,
-                              size: MediaQuery.of(context).size.shortestSide *
-                                  .15,
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Oops, something went wrong.\n\n',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall,
-                                  ),
-                                  const TextSpan(
-                                    children: [TextSpan(text: "\n\n")],
-                                  ),
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Details\n',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
-                                      ),
-                                      TextSpan(
-                                        text: "${error.toString()}\n\n",
-                                      ),
-                                    ],
-                                  ),
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: "Solution\n",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
-                                      ),
-                                      const TextSpan(
-                                        text:
-                                            "Please pick a different image.\n\n",
-                                      ),
-                                    ],
-                                  ),
-                                  const TextSpan(
-                                    text:
-                                        "If you need further assistance, please reach out to our support team.",
-                                  ),
-                                ],
+            );
+          },
+          error: (error, stackTrace) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+              ),
+              child: Column(
+                children: [
+                  Card(
+                    elevation: .5,
+                    child: InkWell(
+                      onTap: () async {
+                        await ref
+                            .read(imagePickerControllerProvider.notifier)
+                            .pickImage();
+                      },
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * .7,
+                        width: MediaQuery.of(context).size.width,
+                        child: SingleChildScrollView(
+                          primary: false,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                FluentIcons.warning_20_regular,
+                                size: MediaQuery.of(context).size.shortestSide *
+                                    .15,
                               ),
-                              textAlign: TextAlign.center,
-                            )
-                          ],
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Oops, something went wrong.\n\n',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
+                                    ),
+                                    const TextSpan(
+                                      children: [TextSpan(text: "\n\n")],
+                                    ),
+                                    TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Details\n',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                        TextSpan(
+                                          text: "${error.toString()}\n\n",
+                                        ),
+                                      ],
+                                    ),
+                                    TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: "Solution\n",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                        const TextSpan(
+                                          text:
+                                              "Please pick a different image.\n\n",
+                                        ),
+                                      ],
+                                    ),
+                                    const TextSpan(
+                                      text:
+                                          "If you need further assistance, please reach out to our support team.",
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20.0,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20.0,
+                    ),
+                    child: JoinBtns(
+                      buttons: [
+                        JoinBtn(
+                          onPressed: () async {
+                            await ref
+                                .read(imagePickerControllerProvider.notifier)
+                                .pickImage();
+                          },
+                          // icon: FluentIcons.image_add_24_regular,
+                          label: "Pick Image",
+                        ),
+                      ],
+                    ),
                   ),
-                  child: JoinBtns(
-                    buttons: [
-                      JoinBtn(
-                        onPressed: () async {
-                          await ref
-                              .read(imagePickerControllerProvider.notifier)
-                              .pickImage();
-                        },
-                        // icon: FluentIcons.image_add_24_regular,
-                        label: "Pick Image",
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-        loading: () {
-          return const Center(child: CircularProgressIndicator());
-        },
+                ],
+              ),
+            );
+          },
+          loading: () {
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }
