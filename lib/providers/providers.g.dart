@@ -23,12 +23,12 @@ final routerDelegateProvider =
 
 typedef RouterDelegateRef = AutoDisposeProviderRef<Raw<BeamerDelegate>>;
 String _$imagePickerControllerHash() =>
-    r'e9490ff0c9d5c84fcea74756967b6bef9d4a395b';
+    r'4f642de1e546e995eef3aac30bc55c994be6415e';
 
 /// See also [ImagePickerController].
 @ProviderFor(ImagePickerController)
 final imagePickerControllerProvider =
-    AutoDisposeAsyncNotifierProvider<ImagePickerController, XFile?>.internal(
+    AsyncNotifierProvider<ImagePickerController, XFile?>.internal(
   ImagePickerController.new,
   name: r'imagePickerControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -38,7 +38,7 @@ final imagePickerControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$ImagePickerController = AutoDisposeAsyncNotifier<XFile?>;
+typedef _$ImagePickerController = AsyncNotifier<XFile?>;
 String _$textRecControllerHash() => r'cc5aa6829bc3e18dc9f33647c613e3f0a1ce9034';
 
 /// Copied from Dart SDK

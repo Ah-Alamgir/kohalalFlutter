@@ -30,6 +30,7 @@ environment:
 dependencies:
   beamer: ^1.6.1
   cupertino_icons: ^1.0.6
+  fluentui_system_icons: ^1.1.236
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.5

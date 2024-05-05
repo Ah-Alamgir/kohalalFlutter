@@ -1,6 +1,6 @@
 part of 'providers.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ImagePickerController extends _$ImagePickerController {
   @override
   FutureOr<XFile?> build() {
