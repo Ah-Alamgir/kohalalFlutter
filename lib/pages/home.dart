@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:beamer/beamer.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:text_scanner/components/common/error_view.dart';
 import 'package:text_scanner/providers/providers.dart';
@@ -96,12 +97,16 @@ class HomePage extends HookConsumerWidget {
                       ),
                       Positioned(
                         right: 0.0,
-                        child: IconButton(
-                          onPressed: () {
-                            ref.invalidate(imagePickerControllerProvider);
-                          },
-                          icon: const Icon(
-                            Icons.close,
+                        child: Card.outlined(
+                          shape: const CircleBorder(),
+                          child: IconButton(
+                            onPressed: () {
+                              ref.invalidate(imagePickerControllerProvider);
+                            },
+                            icon: const Icon(
+                              FluentIcons.delete_24_regular,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                       ),
@@ -183,7 +188,9 @@ class HomePage extends HookConsumerWidget {
           },
           loading: () {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                strokeWidth: 2.0,
+              ),
             );
           },
         ),
