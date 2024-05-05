@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:beamer/beamer.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:text_scanner/components/common/error_view.dart';
 import 'package:text_scanner/providers/providers.dart';
