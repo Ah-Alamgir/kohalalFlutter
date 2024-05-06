@@ -7,22 +7,24 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:text_scanner/components/common/error_view.dart';
 import 'package:text_scanner/components/common/join_btns.dart';
+import 'package:text_scanner/hooks/undo_history.dart';
 import 'package:text_scanner/providers/providers.dart';
 
 class TextRecPage extends HookConsumerWidget {
   const TextRecPage(this.imagePath, {super.key});
   final String imagePath;
+  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncTextRecController =
         ref.watch(textRecControllerProvider(imagePath));
     final textController = useTextEditingController();
+    final undoController = useUndoHistoryController();
 
     useEffect(() {
       asyncTextRecController.whenData((data) {
         textController.text = data ?? '';
       });
-      
 
       return null;
     }, [asyncTextRecController.valueOrNull]);
@@ -54,9 +56,23 @@ class TextRecPage extends HookConsumerWidget {
             //   return const Text("Error recognizing text");
             // }
 
-            return Stack(
+            return Column(
               children: [
-                Positioned.fill(
+                JoinBtns(
+                  buttons: [
+                    JoinBtn(
+                      onPressed: undoController.undo,
+                      icon: FluentIcons.arrow_undo_24_regular,
+                      // label: 'Undo',
+                    ),
+                    JoinBtn(
+                      onPressed: undoController.redo,
+                      icon: FluentIcons.arrow_redo_24_regular,
+                      // label: 'Redo',
+                    ),
+                  ],
+                ),
+                Expanded(
                   child: Card(
                     elevation: .5,
                     clipBehavior: Clip.hardEdge,
@@ -66,26 +82,12 @@ class TextRecPage extends HookConsumerWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         controller: textController,
+                        undoController: undoController,
                         maxLines: null,
                         decoration: const InputDecoration(
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 0.0,
-                  child: Card.outlined(
-                    shape: const CircleBorder(),
-                    child: IconButton(
-                      onPressed: () {
-                        ref.invalidate(imagePickerControllerProvider);
-                      },
-                      icon: const Icon(
-                        FluentIcons.delete_24_regular,
-                        color: Colors.red,
                       ),
                     ),
                   ),
