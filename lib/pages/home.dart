@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:beamer/beamer.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:text_scanner/components/common/error_view.dart';
 import 'package:text_scanner/providers/providers.dart';
@@ -29,44 +31,27 @@ class HomePage extends HookConsumerWidget {
             if (data == null) {
               return Column(
                 children: [
-                  Card(
-                    elevation: .5,
-                    child: InkWell(
-                      onTap: () async {
-                        await ref
-                            .read(imagePickerControllerProvider.notifier)
-                            .pickImage();
-                      },
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height * .7,
-                        width: MediaQuery.of(context).size.width,
-                        child: Icon(
-                          FluentIcons.image_add_24_regular,
-                          color: Theme.of(context)
-                              .iconTheme
-                              .color
-                              ?.withOpacity(.3),
-                          size: MediaQuery.of(context).size.shortestSide * .4,
+                  Expanded(
+                    child: Card(
+                      elevation: .5,
+                      child: InkWell(
+                        onTap: () async {
+                          await ref
+                              .read(imagePickerControllerProvider.notifier)
+                              .pickImage();
+                        },
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Icon(
+                            FluentIcons.image_add_24_regular,
+                            color: Theme.of(context)
+                                .iconTheme
+                                .color
+                                ?.withOpacity(.3),
+                            size: MediaQuery.of(context).size.shortestSide * .4,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20.0,
-                    ),
-                    child: JoinBtns(
-                      buttons: [
-                        JoinBtn(
-                          onPressed: () async {
-                            await ref
-                                .read(imagePickerControllerProvider.notifier)
-                                .pickImage();
-                          },
-                          // icon: FluentIcons.image_add_24_regular,
-                          label: "Pick Image",
-                        ),
-                      ],
                     ),
                   ),
                 ],
@@ -75,69 +60,19 @@ class HomePage extends HookConsumerWidget {
 
             return Column(
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .7,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        child: Card(
-                          elevation: .5,
-                          clipBehavior: Clip.hardEdge,
-                          child: SizedBox(
-                            // height: MediaQuery.of(context).size.height * .6,
-                            width: MediaQuery.of(context).size.width,
-                            child: Image.file(
-                              File(
-                                data.path,
-                              ),
-                            ),
-                          ),
+                Expanded(
+                  child: Card(
+                    elevation: .5,
+                    clipBehavior: Clip.hardEdge,
+                    child: SizedBox(
+                      // height: MediaQuery.of(context).size.height * .6,
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.file(
+                        File(
+                          data.path,
                         ),
                       ),
-                      Positioned(
-                        right: 0.0,
-                        child: Card.outlined(
-                          shape: const CircleBorder(),
-                          child: IconButton(
-                            onPressed: () {
-                              ref.invalidate(imagePickerControllerProvider);
-                            },
-                            icon: const Icon(
-                              FluentIcons.delete_24_regular,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20.0,
-                  ),
-                  child: JoinBtns(
-                    buttons: [
-                      JoinBtn(
-                        onPressed: () async {
-                          await ref
-                              .read(imagePickerControllerProvider.notifier)
-                              .pickImage();
-                        },
-                        icon: FluentIcons.image_add_24_regular,
-                        label: "Pick Image",
-                      ),
-                      JoinBtn(
-                        onPressed: () {
-                          context.beamToNamed(
-                            '/textrec',
-                            data: {'imagePath': data.path},
-                          );
-                        },
-                        icon: FluentIcons.scan_text_24_regular,
-                        label: "Scan",
-                      )
-                    ],
+                    ),
                   ),
                 ),
               ],
@@ -146,40 +81,23 @@ class HomePage extends HookConsumerWidget {
           error: (error, stackTrace) {
             return Column(
               children: [
-                Card(
-                  elevation: .5,
-                  child: InkWell(
-                    onTap: () async {
-                      await ref
-                          .read(imagePickerControllerProvider.notifier)
-                          .pickImage();
-                    },
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * .7,
-                      width: MediaQuery.of(context).size.width,
-                      child: AsyncErrorView(
-                        error: error,
-                        stackTrace: stackTrace,
+                Expanded(
+                  child: Card(
+                    elevation: .5,
+                    child: InkWell(
+                      onTap: () async {
+                        await ref
+                            .read(imagePickerControllerProvider.notifier)
+                            .pickImage();
+                      },
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: AsyncErrorView(
+                          error: error,
+                          stackTrace: stackTrace,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20.0,
-                  ),
-                  child: JoinBtns(
-                    buttons: [
-                      JoinBtn(
-                        onPressed: () async {
-                          await ref
-                              .read(imagePickerControllerProvider.notifier)
-                              .pickImage();
-                        },
-                        // icon: FluentIcons.image_add_24_regular,
-                        label: "Pick Image",
-                      ),
-                    ],
                   ),
                 ),
               ],
@@ -192,6 +110,40 @@ class HomePage extends HookConsumerWidget {
               ),
             );
           },
+        ),
+      ),
+      bottomNavigationBar: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.symmetric(
+          vertical: 8.0,
+          horizontal: 16.0,
+        ),
+        child: JoinBtns(
+          buttons: [
+            JoinBtn(
+              onPressed: () async {
+                await ref
+                    .read(imagePickerControllerProvider.notifier)
+                    .pickImage();
+              },
+              icon: FluentIcons.image_add_24_regular,
+              label: "Pick Image",
+            ),
+            JoinBtn(
+              onPressed: asyncImageController.valueOrNull == null
+                  ? null
+                  : () {
+                      context.beamToNamed(
+                        '/textrec',
+                        data: {
+                          'imagePath': asyncImageController.valueOrNull?.path
+                        },
+                      );
+                    },
+              icon: FluentIcons.scan_text_24_regular,
+              label: "Scan",
+            )
+          ],
         ),
       ),
     );

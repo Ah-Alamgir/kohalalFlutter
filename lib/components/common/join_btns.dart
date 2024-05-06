@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class JoinBtn {
   final IconData? icon;
   final String? label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   JoinBtn({
     this.icon,
@@ -17,10 +17,12 @@ class JoinBtn {
 
 class JoinBtns extends StatelessWidget {
   final List<JoinBtn> buttons;
+  final MainAxisAlignment mainAxisAlignment;
 
   const JoinBtns({
     super.key,
     required this.buttons,
+    this.mainAxisAlignment = MainAxisAlignment.spaceEvenly,
   });
 
   @override
@@ -33,7 +35,7 @@ class JoinBtns extends StatelessWidget {
       child: SizedBox(
         height: btnHeight,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: mainAxisAlignment,
           children: buttons.expand((button) {
             return [
               Expanded(

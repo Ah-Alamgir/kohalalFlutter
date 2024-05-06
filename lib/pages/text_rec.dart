@@ -13,7 +13,7 @@ import 'package:text_scanner/providers/providers.dart';
 class TextRecPage extends HookConsumerWidget {
   const TextRecPage(this.imagePath, {super.key});
   final String imagePath;
-  
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncTextRecController =
@@ -108,7 +108,10 @@ class TextRecPage extends HookConsumerWidget {
       ),
       bottomNavigationBar: Container(
         width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(
+          vertical: 8.0,
+          horizontal: 16.0,
+        ),
         child: JoinBtns(
           buttons: [
             JoinBtn(
