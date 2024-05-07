@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:beamer/beamer.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:text_scanner/components/common/error_view.dart';
 import 'package:text_scanner/providers/providers.dart';
@@ -21,6 +19,7 @@ class HomePage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Text Scanner'),
+        
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -60,6 +59,35 @@ class HomePage extends HookConsumerWidget {
 
             return Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Card(
+                      clipBehavior: Clip.hardEdge,
+                      elevation: .6,
+                      child: SizedBox(
+                        height: Theme.of(context).buttonTheme.height,
+                        child: InkWell(
+                          onTap: () async {
+                            await ref
+                                .read(imagePickerControllerProvider.notifier)
+                                .cropImage(data);
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 8.0,
+                            ),
+                            child: Icon(
+                              FluentIcons.crop_24_regular,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                
                 Expanded(
                   child: Card(
                     elevation: .5,

@@ -23,7 +23,7 @@ final routerDelegateProvider =
 
 typedef RouterDelegateRef = AutoDisposeProviderRef<Raw<BeamerDelegate>>;
 String _$imagePickerControllerHash() =>
-    r'21e87f7b3ece9fd55c3544c72fe1c1448ec11673';
+    r'056b3b619365bf2c2420610815bed7b16a0740f5';
 
 /// See also [ImagePickerController].
 @ProviderFor(ImagePickerController)
