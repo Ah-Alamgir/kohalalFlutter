@@ -32,6 +32,7 @@ class TextRecPage extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Text Recognition'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: IconButton(
           onPressed: () {
             if (context.canBeamBack) {
