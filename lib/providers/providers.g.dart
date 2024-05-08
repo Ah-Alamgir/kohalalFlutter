@@ -22,7 +22,7 @@ final routerDelegateProvider =
 );
 
 typedef RouterDelegateRef = AutoDisposeProviderRef<Raw<BeamerDelegate>>;
-String _$sharedImageFileHash() => r'2cd4969cee3094fac3c3b6d0f0081d658b822485';
+String _$sharedImageFileHash() => r'13e0c2efe3748c7502873637d48bf234ac5fb11f';
 
 /// See also [sharedImageFile].
 @ProviderFor(sharedImageFile)
@@ -54,7 +54,7 @@ final imagePickerControllerProvider =
 );
 
 typedef _$ImagePickerController = AsyncNotifier<XFile?>;
-String _$textRecControllerHash() => r'cc5aa6829bc3e18dc9f33647c613e3f0a1ce9034';
+String _$textRecControllerHash() => r'b08693782d6223104234ca026df5ef86df2166fc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -78,10 +78,10 @@ class _SystemHash {
 }
 
 abstract class _$TextRecController
-    extends BuildlessAutoDisposeAsyncNotifier<String?> {
+    extends BuildlessAutoDisposeAsyncNotifier<String> {
   late final String filePath;
 
-  FutureOr<String?> build(
+  FutureOr<String> build(
     String filePath,
   );
 }
@@ -91,7 +91,7 @@ abstract class _$TextRecController
 const textRecControllerProvider = TextRecControllerFamily();
 
 /// See also [TextRecController].
-class TextRecControllerFamily extends Family<AsyncValue<String?>> {
+class TextRecControllerFamily extends Family<AsyncValue<String>> {
   /// See also [TextRecController].
   const TextRecControllerFamily();
 
@@ -130,7 +130,7 @@ class TextRecControllerFamily extends Family<AsyncValue<String?>> {
 
 /// See also [TextRecController].
 class TextRecControllerProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<TextRecController, String?> {
+    extends AutoDisposeAsyncNotifierProviderImpl<TextRecController, String> {
   /// See also [TextRecController].
   TextRecControllerProvider(
     String filePath,
@@ -161,7 +161,7 @@ class TextRecControllerProvider
   final String filePath;
 
   @override
-  FutureOr<String?> runNotifierBuild(
+  FutureOr<String> runNotifierBuild(
     covariant TextRecController notifier,
   ) {
     return notifier.build(
@@ -186,7 +186,7 @@ class TextRecControllerProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<TextRecController, String?>
+  AutoDisposeAsyncNotifierProviderElement<TextRecController, String>
       createElement() {
     return _TextRecControllerProviderElement(this);
   }
@@ -205,13 +205,13 @@ class TextRecControllerProvider
   }
 }
 
-mixin TextRecControllerRef on AutoDisposeAsyncNotifierProviderRef<String?> {
+mixin TextRecControllerRef on AutoDisposeAsyncNotifierProviderRef<String> {
   /// The parameter `filePath` of this provider.
   String get filePath;
 }
 
 class _TextRecControllerProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<TextRecController, String?>
+    extends AutoDisposeAsyncNotifierProviderElement<TextRecController, String>
     with TextRecControllerRef {
   _TextRecControllerProviderElement(super.provider);
 

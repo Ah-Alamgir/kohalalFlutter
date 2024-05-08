@@ -3,7 +3,7 @@ part of 'providers.dart';
 @riverpod
 class TextRecController extends _$TextRecController {
   @override
-  FutureOr<String?> build(String filePath) {
+  FutureOr<String> build(String filePath) {
     return getRecText(filePath);
   }
 
@@ -14,13 +14,22 @@ class TextRecController extends _$TextRecController {
     });
   }
 
-  FutureOr<String?> getRecText(String imagePath) async {
+  FutureOr<String> getRecText(String imagePath) async {
     final inputImage = InputImage.fromFilePath(imagePath);
     final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
     final RecognizedText recognizedText =
         await textRecognizer.processImage(inputImage);
+    
 
     String text = recognizedText.text;
+
+    // Release resources
+    await textRecognizer.close();
+
+    if (text.isEmpty) {
+      throw Exception('No text found');
+    }
+
     return text;
   }
 }

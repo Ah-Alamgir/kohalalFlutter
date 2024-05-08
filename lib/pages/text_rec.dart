@@ -25,7 +25,7 @@ class TextRecPage extends HookConsumerWidget {
 
     useEffect(() {
       asyncTextRecController.whenData((data) {
-        textController.text = data ?? '';
+        textController.text = data;
       });
 
       return null;
@@ -72,12 +72,6 @@ class TextRecPage extends HookConsumerWidget {
             children: [
               asyncTextRecController.when(
                 data: (data) {
-                  if (data == null) {
-                    return const Text("Error recognizing text");
-                  }
-                  // if (data.isEmpty) {
-                  //   return const Text("Error recognizing text");
-                  // }
 
                   return Column(
                     children: [
