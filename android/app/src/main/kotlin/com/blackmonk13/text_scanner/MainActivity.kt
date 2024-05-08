@@ -15,22 +15,29 @@ class MainActivity: FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Handle the intent if the app was opened from the share menu
-        handleSendIntent(intent)
+        handleIncomingIntent(intent)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // Handle the intent if the app was already running and it's brought to the foreground
-        handleSendIntent(intent)
+        handleIncomingIntent(intent)
     }
 
-    private fun handleSendIntent(intent: Intent) {
+    private fun handleIncomingIntent(intent: Intent) {
         when (intent.action) {
             Intent.ACTION_SEND -> {
                 if ("text/plain" == intent.type) {
                     sharedText = intent.getStringExtra(Intent.EXTRA_TEXT)
                 } else if (intent.type?.startsWith("image/") == true) {
                     sharedImageUri = intent.getParcelableExtra(Intent.EXTRA_STREAM) as? Uri
+                }
+            }
+            Intent.ACTION_VIEW -> {
+                // Handle the VIEW action
+                intent.data?.let { uri ->
+                    // update the shared uri
+                    sharedImageUri = uri
                 }
             }
         }
