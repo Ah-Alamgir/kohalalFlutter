@@ -1,10 +1,31 @@
 part of 'providers.dart';
 
 @Riverpod(keepAlive: true)
+FutureOr<XFile?> sharedImageFile(SharedImageFileRef ref) async {
+  String? sharedImageUri = await SharedData.getSharedImageUri();
+
+  if (sharedImageUri == null) {
+    return null;
+  }
+
+  if (sharedImageUri.isEmpty) {
+    return null;
+  }
+
+  try {
+    File file = await toFile(sharedImageUri); // Converting uri to file
+
+    return XFile(file.path);
+  } on PlatformException {
+    return null;
+  }
+}
+
+@Riverpod(keepAlive: true)
 class ImagePickerController extends _$ImagePickerController {
   @override
   FutureOr<XFile?> build() {
-    return null;
+    return ref.watch(sharedImageFileProvider.future);
   }
 
   Future<void> pickImage() async {
@@ -36,7 +57,7 @@ class ImagePickerController extends _$ImagePickerController {
       if (croppedFile != null) {
         return XFile(croppedFile.path);
       }
-      
+
       return image;
     });
   }

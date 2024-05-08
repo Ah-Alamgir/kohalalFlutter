@@ -22,8 +22,23 @@ final routerDelegateProvider =
 );
 
 typedef RouterDelegateRef = AutoDisposeProviderRef<Raw<BeamerDelegate>>;
+String _$sharedImageFileHash() => r'2cd4969cee3094fac3c3b6d0f0081d658b822485';
+
+/// See also [sharedImageFile].
+@ProviderFor(sharedImageFile)
+final sharedImageFileProvider = FutureProvider<XFile?>.internal(
+  sharedImageFile,
+  name: r'sharedImageFileProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$sharedImageFileHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef SharedImageFileRef = FutureProviderRef<XFile?>;
 String _$imagePickerControllerHash() =>
-    r'056b3b619365bf2c2420610815bed7b16a0740f5';
+    r'a6d9e4d48b73b5b3dd6c4c284f239852dc0466e8';
 
 /// See also [ImagePickerController].
 @ProviderFor(ImagePickerController)
