@@ -82,3 +82,4 @@ jobs:
         uses: softprops/action-gh-release@v2.0.5
         with:
           files: build/app/outputs/flutter-apk/app-release.apk
+          tag_name: v${{ env.VERSION }}
