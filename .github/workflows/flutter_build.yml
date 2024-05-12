@@ -62,12 +62,18 @@ jobs:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
+      - name: Extract version
+        id: extract_version
+        run: |
+          version=$(grep 'version:' pubspec.yaml | sed 's/version: //')
+          echo "VERSION=${version}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+  
       - name: Create Tag
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag -a v${{ github.run_number }} -m "Release v${{ github.run_number }}"
-          git push origin v${{ github.run_number }}
+          git tag -a v${{ env.VERSION }} -m "Release v${{ env.VERSION }}"
+          git push origin v${{ env.VERSION }}
         
       
       - name: GH Release
