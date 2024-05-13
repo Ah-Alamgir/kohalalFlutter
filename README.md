@@ -17,9 +17,10 @@ Text Scanner is an Android application built with Flutter that leverages the pow
 
 ## Screenshots <a name = "screenshots"></a>
 
-![screenshot1](screenshots/1.jpg)
-![screenshot2](screenshots/2.jpg)
-![screenshot3](screenshots/3.jpg)
+| ![screenshot1](screenshots/1.jpg) | ![screenshot2](screenshots/2.jpg) | ![screenshot3](screenshots/3.jpg) |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+
+
 
 ## Getting Started <a name = "getting_started"></a>
 
