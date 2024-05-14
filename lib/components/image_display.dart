@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:text_scanner/components/card_icon_btn.dart';
 import 'package:text_scanner/components/common/error_view.dart';
+import 'package:text_scanner/components/image_cropper.dart';
 import 'package:text_scanner/providers/providers.dart';
 
 class ImageDisplay extends HookConsumerWidget {
@@ -52,13 +53,13 @@ class ImageDisplay extends HookConsumerWidget {
                 children: [
                   CardIconBtn(
                     onTap: () async {
-                      final cropResult = await showMaterialImageCropper(
+                      final cropResult = await showImageCropper(
                         context,
-                        imageProvider: FileImage(
+                        FileImage(
                           File(data.path),
                         ), // Or any other image provider
                       );
-                      
+
                       await ref
                           .read(imagePickerControllerProvider.notifier)
                           .croppyImage(cropResult);
