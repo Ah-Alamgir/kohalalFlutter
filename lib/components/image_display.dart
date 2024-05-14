@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:croppy/croppy.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
