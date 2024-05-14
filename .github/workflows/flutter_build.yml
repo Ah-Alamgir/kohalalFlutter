@@ -24,9 +24,8 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v4.2.1
         with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '17'
-              
+          distribution: "temurin" # See 'Supported distributions' for available options
+          java-version: "17"
 
       - name: Flutter action
         # You may pin to the exact commit or the version.
@@ -49,10 +48,10 @@ jobs:
           pub-cache-path: # optional, default is default
           # The architecture of Flutter SDK executable (x64 or arm64)
           architecture: # optional, default is ${{ runner.arch }}
-    
+
       - name: Get Flutter dependencies
         run: flutter pub get
-  
+
       - name: Build APK
         run: flutter build apk --release
 
@@ -62,24 +61,37 @@ jobs:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-      - name: Extract version
+      - name: Extract version and build number
         id: extract_version
         run: |
-          version=$(grep 'version:' pubspec.yaml | sed 's/version: //')
-          echo "VERSION=${version}-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
-  
+          version=$(grep 'version:' pubspec.yaml | sed 's/version: //' | cut -d "+" -f 1)
+          build_number=$(grep 'version:' pubspec.yaml | sed 's/version: //' | cut -d "+" -f 2)
+          echo "VERSION=${version}" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=${build_number}" >> $GITHUB_ENV
+
+      - name: Increment build number and update pubspec.yaml
+        run: |
+          new_build_number=$((${BUILD_NUMBER} + 1))
+          sed -i "s/version: ${VERSION}+${BUILD_NUMBER}/version: ${VERSION}+${new_build_number}/" pubspec.yaml
+          echo "NEW_BUILD_NUMBER=${new_build_number}" >> $GITHUB_ENV
+
+      - name: Commit updated pubspec.yaml
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Increment build number to ${NEW_BUILD_NUMBER}"
+          git push
+
       - name: Create Tag
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag -a v${{ env.VERSION }} -m "Release v${{ env.VERSION }}"
-          git push origin v${{ env.VERSION }}
+          git tag -a v${{ env.VERSION }}+${{ env.NEW_BUILD_NUMBER }} -m "Release v${{ env.VERSION }}+${{ env.NEW_BUILD_NUMBER }}"
+          git push origin v${{ env.VERSION }}+${{ env.NEW_BUILD_NUMBER }}
         
-      
       - name: GH Release
-        # You may pin to the exact commit or the version.
-        # uses: softprops/action-gh-release@69320dbe05506a9a39fc8ae11030b214ec2d1f87
         uses: softprops/action-gh-release@v2.0.5
         with:
           files: build/app/outputs/flutter-apk/app-release.apk
-          tag_name: v${{ env.VERSION }}
+          tag_name: v${{ env.VERSION }}+${{ env.NEW_BUILD_NUMBER }}
+          make_latest: true
