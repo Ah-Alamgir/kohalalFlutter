@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:croppy/croppy.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -51,9 +52,16 @@ class ImageDisplay extends HookConsumerWidget {
                 children: [
                   CardIconBtn(
                     onTap: () async {
+                      final cropResult = await showMaterialImageCropper(
+                        context,
+                        imageProvider: FileImage(
+                          File(data.path),
+                        ), // Or any other image provider
+                      );
+                      
                       await ref
                           .read(imagePickerControllerProvider.notifier)
-                          .cropImage(data);
+                          .croppyImage(cropResult);
                     },
                     icon: FluentIcons.crop_24_regular,
                   ),

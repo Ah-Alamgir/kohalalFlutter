@@ -33,32 +33,36 @@ class ImagePickerController extends _$ImagePickerController {
     state = await AsyncValue.guard(_pickImage);
   }
 
-  Future<void> cropImage(XFile image) async {
+  Future<void> croppyImage(CropImageResult? cropResult) async {
+    if (cropResult == null) {
+      return;
+    }
+
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      final CroppedFile? croppedFile = await ImageCropper().cropImage(
-        sourcePath: image.path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9,
-        ],
-        uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: 'Crop Image',
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false,
-          ),
-        ],
+      final image = cropResult.uiImage;
+      final bytesData = await image.toByteData(
+        format: ui.ImageByteFormat.png,
       );
 
-      if (croppedFile != null) {
-        return XFile(croppedFile.path);
+      if (bytesData == null) {
+        throw Exception("No bytes found");
       }
 
-      return image;
+      final bytes = bytesData.buffer.asUint8List();
+
+      final temp = await getTemporaryDirectory();
+      final fileName = p.setExtension(generateFilename(), '.png');
+      final filePath = p.join(temp.path, fileName);
+      final file = File(filePath);
+
+      // Write the png bytes to the file
+      await file.writeAsBytes(bytes);
+
+      // Dispose the image if it's no longer needed (e.g. you don't use it in the UI)
+      image.dispose();
+
+      return XFile(file.path);
     });
   }
 
@@ -75,4 +79,18 @@ class ImagePickerController extends _$ImagePickerController {
 
     return image;
   }
+}
+
+String generateFilename() {
+  // Get the current date and time
+  DateTime now = DateTime.now();
+
+  // Format the date and time as a string
+  String formattedDateTime =
+      '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}_${now.minute.toString().padLeft(2, '0')}_${now.second.toString().padLeft(2, '0')}_${now.millisecond.toString().padLeft(3, '0')}';
+
+  // Create the filename starting with 'Crop_' followed by the formatted date and time
+  String filename = 'Crop_$formattedDateTime';
+
+  return filename;
 }
