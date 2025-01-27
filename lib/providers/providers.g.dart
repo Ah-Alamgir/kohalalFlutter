@@ -6,7 +6,7 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerDelegateHash() => r'04e01521a28ad37aa85006a57860f8494a729dd0';
+String _$routerDelegateHash() => r'16aaa51e3e20c8fd1682ec7cfb464782b37ffddf';
 
 /// See also [routerDelegate].
 @ProviderFor(routerDelegate)
@@ -24,7 +24,7 @@ final routerDelegateProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef RouterDelegateRef = AutoDisposeProviderRef<Raw<BeamerDelegate>>;
-String _$sharedImageFileHash() => r'13e0c2efe3748c7502873637d48bf234ac5fb11f';
+String _$sharedImageFileHash() => r'921f11396d9e8f9a7c390d308894129d08b95731';
 
 /// See also [sharedImageFile].
 @ProviderFor(sharedImageFile)

@@ -1,7 +1,7 @@
 part of 'providers.dart';
 
 @Riverpod(keepAlive: true)
-FutureOr<XFile?> sharedImageFile(SharedImageFileRef ref) async {
+FutureOr<XFile?> sharedImageFile(Ref ref) async {
   String? sharedImageUri = await SharedData.getSharedImageUri();
 
   if (sharedImageUri == null) {

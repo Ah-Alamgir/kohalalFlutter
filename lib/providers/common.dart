@@ -1,7 +1,7 @@
 part of 'providers.dart';
 
 @riverpod
-Raw<BeamerDelegate> routerDelegate(RouterDelegateRef ref) {
+Raw<BeamerDelegate> routerDelegate(Ref ref) {
   return BeamerDelegate(
     locationBuilder: BeamerLocationBuilder(
       beamLocations: [
