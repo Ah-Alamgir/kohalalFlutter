@@ -16,6 +16,7 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncImageController = ref.watch(imagePickerControllerProvider);
 
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Text Scanner'),

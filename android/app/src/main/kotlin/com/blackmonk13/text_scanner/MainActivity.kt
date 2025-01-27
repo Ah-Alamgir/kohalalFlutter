@@ -11,19 +11,16 @@ class MainActivity: FlutterActivity() {
     private val CHANNEL = "app.channel.shared.data"
     private var sharedText: String? = null
     private var sharedImageUri: Uri? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Handle the intent if the app was opened from the share menu
         handleIncomingIntent(intent)
     }
-
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // Handle the intent if the app was already running and it's brought to the foreground
         handleIncomingIntent(intent)
     }
-
     private fun handleIncomingIntent(intent: Intent) {
         when (intent.action) {
             Intent.ACTION_SEND -> {
@@ -42,7 +39,6 @@ class MainActivity: FlutterActivity() {
             }
         }
     }
-
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->

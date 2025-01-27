@@ -21,6 +21,8 @@ final routerDelegateProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef RouterDelegateRef = AutoDisposeProviderRef<Raw<BeamerDelegate>>;
 String _$sharedImageFileHash() => r'13e0c2efe3748c7502873637d48bf234ac5fb11f';
 
@@ -36,9 +38,11 @@ final sharedImageFileProvider = FutureProvider<XFile?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef SharedImageFileRef = FutureProviderRef<XFile?>;
 String _$imagePickerControllerHash() =>
-    r'a6d9e4d48b73b5b3dd6c4c284f239852dc0466e8';
+    r'59cb8ca4a42d3c5682f178a0fa8863320f480e36';
 
 /// See also [ImagePickerController].
 @ProviderFor(ImagePickerController)
@@ -205,6 +209,8 @@ class TextRecControllerProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin TextRecControllerRef on AutoDisposeAsyncNotifierProviderRef<String> {
   /// The parameter `filePath` of this provider.
   String get filePath;
@@ -219,4 +225,4 @@ class _TextRecControllerProviderElement
   String get filePath => (origin as TextRecControllerProvider).filePath;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -20,6 +20,8 @@ class MyApp extends HookConsumerWidget {
       ],
     );
 
+
+
     return MaterialApp.router(
       routerDelegate: routerDelegate,
       routeInformationParser: BeamerParser(),
