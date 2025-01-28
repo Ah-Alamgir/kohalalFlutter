@@ -6,7 +6,7 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerDelegateHash() => r'04e01521a28ad37aa85006a57860f8494a729dd0';
+String _$routerDelegateHash() => r'16aaa51e3e20c8fd1682ec7cfb464782b37ffddf';
 
 /// See also [routerDelegate].
 @ProviderFor(routerDelegate)
@@ -24,7 +24,7 @@ final routerDelegateProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef RouterDelegateRef = AutoDisposeProviderRef<Raw<BeamerDelegate>>;
-String _$sharedImageFileHash() => r'13e0c2efe3748c7502873637d48bf234ac5fb11f';
+String _$sharedImageFileHash() => r'921f11396d9e8f9a7c390d308894129d08b95731';
 
 /// See also [sharedImageFile].
 @ProviderFor(sharedImageFile)
@@ -41,24 +41,8 @@ final sharedImageFileProvider = FutureProvider<XFile?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SharedImageFileRef = FutureProviderRef<XFile?>;
-String _$imagePickerControllerHash() =>
-    r'59cb8ca4a42d3c5682f178a0fa8863320f480e36';
-
-/// See also [ImagePickerController].
-@ProviderFor(ImagePickerController)
-final imagePickerControllerProvider =
-    AsyncNotifierProvider<ImagePickerController, XFile?>.internal(
-  ImagePickerController.new,
-  name: r'imagePickerControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$imagePickerControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$ImagePickerController = AsyncNotifier<XFile?>;
-String _$textRecControllerHash() => r'b08693782d6223104234ca026df5ef86df2166fc';
+String _$croppableImageDataFromImageHash() =>
+    r'7cc43ffbafe65bb1ae206e0d27218522fa4757cc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -80,6 +64,161 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// See also [croppableImageDataFromImage].
+@ProviderFor(croppableImageDataFromImage)
+const croppableImageDataFromImageProvider = CroppableImageDataFromImageFamily();
+
+/// See also [croppableImageDataFromImage].
+class CroppableImageDataFromImageFamily
+    extends Family<AsyncValue<CroppableImageData>> {
+  /// See also [croppableImageDataFromImage].
+  const CroppableImageDataFromImageFamily();
+
+  /// See also [croppableImageDataFromImage].
+  CroppableImageDataFromImageProvider call(
+    ImageProvider<Object> imageProvider,
+  ) {
+    return CroppableImageDataFromImageProvider(
+      imageProvider,
+    );
+  }
+
+  @override
+  CroppableImageDataFromImageProvider getProviderOverride(
+    covariant CroppableImageDataFromImageProvider provider,
+  ) {
+    return call(
+      provider.imageProvider,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'croppableImageDataFromImageProvider';
+}
+
+/// See also [croppableImageDataFromImage].
+class CroppableImageDataFromImageProvider
+    extends AutoDisposeFutureProvider<CroppableImageData> {
+  /// See also [croppableImageDataFromImage].
+  CroppableImageDataFromImageProvider(
+    ImageProvider<Object> imageProvider,
+  ) : this._internal(
+          (ref) => croppableImageDataFromImage(
+            ref as CroppableImageDataFromImageRef,
+            imageProvider,
+          ),
+          from: croppableImageDataFromImageProvider,
+          name: r'croppableImageDataFromImageProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$croppableImageDataFromImageHash,
+          dependencies: CroppableImageDataFromImageFamily._dependencies,
+          allTransitiveDependencies:
+              CroppableImageDataFromImageFamily._allTransitiveDependencies,
+          imageProvider: imageProvider,
+        );
+
+  CroppableImageDataFromImageProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.imageProvider,
+  }) : super.internal();
+
+  final ImageProvider<Object> imageProvider;
+
+  @override
+  Override overrideWith(
+    FutureOr<CroppableImageData> Function(
+            CroppableImageDataFromImageRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CroppableImageDataFromImageProvider._internal(
+        (ref) => create(ref as CroppableImageDataFromImageRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        imageProvider: imageProvider,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<CroppableImageData> createElement() {
+    return _CroppableImageDataFromImageProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CroppableImageDataFromImageProvider &&
+        other.imageProvider == imageProvider;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, imageProvider.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin CroppableImageDataFromImageRef
+    on AutoDisposeFutureProviderRef<CroppableImageData> {
+  /// The parameter `imageProvider` of this provider.
+  ImageProvider<Object> get imageProvider;
+}
+
+class _CroppableImageDataFromImageProviderElement
+    extends AutoDisposeFutureProviderElement<CroppableImageData>
+    with CroppableImageDataFromImageRef {
+  _CroppableImageDataFromImageProviderElement(super.provider);
+
+  @override
+  ImageProvider<Object> get imageProvider =>
+      (origin as CroppableImageDataFromImageProvider).imageProvider;
+}
+
+String _$imagePickerControllerHash() =>
+    r'e10eebcabe3205ac8b1abd16a8397b4b76e7c6ee';
+
+/// See also [ImagePickerController].
+@ProviderFor(ImagePickerController)
+final imagePickerControllerProvider =
+    AsyncNotifierProvider<ImagePickerController, ImagePickerState>.internal(
+  ImagePickerController.new,
+  name: r'imagePickerControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$imagePickerControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ImagePickerController = AsyncNotifier<ImagePickerState>;
+String _$textRecControllerHash() => r'b08693782d6223104234ca026df5ef86df2166fc';
 
 abstract class _$TextRecController
     extends BuildlessAutoDisposeAsyncNotifier<String> {

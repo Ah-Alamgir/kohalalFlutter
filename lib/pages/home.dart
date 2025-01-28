@@ -1,4 +1,3 @@
-
 import 'package:beamer/beamer.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncImageController = ref.watch(imagePickerControllerProvider);
-
 
     return Scaffold(
       appBar: AppBar(
@@ -46,13 +44,14 @@ class HomePage extends HookConsumerWidget {
               label: "Pick Image",
             ),
             JoinBtn(
-              onPressed: asyncImageController.valueOrNull == null
+              onPressed: asyncImageController.valueOrNull?.currentImage == null
                   ? null
                   : () {
                       context.beamToNamed(
                         '/textrec',
                         data: {
-                          'imagePath': asyncImageController.valueOrNull?.path
+                          'imagePath': asyncImageController
+                              .valueOrNull?.currentImage?.path
                         },
                       );
                     },

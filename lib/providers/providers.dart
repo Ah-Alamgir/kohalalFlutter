@@ -3,6 +3,8 @@ library providers;
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart' as p;
 
 import 'package:croppy/croppy.dart';

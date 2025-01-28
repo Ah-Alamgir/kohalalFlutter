@@ -18,11 +18,15 @@ class JoinBtn {
 class JoinBtns extends StatelessWidget {
   final List<JoinBtn> buttons;
   final MainAxisAlignment mainAxisAlignment;
+  final Color? dividerColor;
+  final double? dividerWidth;
 
   const JoinBtns({
     super.key,
     required this.buttons,
     this.mainAxisAlignment = MainAxisAlignment.spaceEvenly,
+    this.dividerColor,
+    this.dividerWidth = 1.0,
   });
 
   @override
@@ -69,9 +73,10 @@ class JoinBtns extends StatelessWidget {
               ),
               if (button != buttons.last)
                 Container(
-                  width: 1.0,
+                  width: dividerWidth,
                   height: btnHeight * .5,
-                  color: Theme.of(context).dividerColor.withOpacity(.5),
+                  color: dividerColor ??
+                      Theme.of(context).dividerColor.withOpacity(.5),
                 ),
             ];
           }).toList(),
