@@ -6,7 +6,7 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerDelegateHash() => r'16aaa51e3e20c8fd1682ec7cfb464782b37ffddf';
+String _$routerDelegateHash() => r'90bc167c4e525a04a71d4e7cbb7a591423a9cf22';
 
 /// See also [routerDelegate].
 @ProviderFor(routerDelegate)
@@ -201,8 +201,174 @@ class _CroppableImageDataFromImageProviderElement
       (origin as CroppableImageDataFromImageProvider).imageProvider;
 }
 
+String _$barcodeScannerControllerHash() =>
+    r'cd0c4e4290cabccdbb254dfe5e916e56315a6e0d';
+
+abstract class _$BarcodeScannerController
+    extends BuildlessAutoDisposeAsyncNotifier<List<Barcode>> {
+  late final String filePath;
+
+  FutureOr<List<Barcode>> build(
+    String filePath,
+  );
+}
+
+/// See also [BarcodeScannerController].
+@ProviderFor(BarcodeScannerController)
+const barcodeScannerControllerProvider = BarcodeScannerControllerFamily();
+
+/// See also [BarcodeScannerController].
+class BarcodeScannerControllerFamily extends Family<AsyncValue<List<Barcode>>> {
+  /// See also [BarcodeScannerController].
+  const BarcodeScannerControllerFamily();
+
+  /// See also [BarcodeScannerController].
+  BarcodeScannerControllerProvider call(
+    String filePath,
+  ) {
+    return BarcodeScannerControllerProvider(
+      filePath,
+    );
+  }
+
+  @override
+  BarcodeScannerControllerProvider getProviderOverride(
+    covariant BarcodeScannerControllerProvider provider,
+  ) {
+    return call(
+      provider.filePath,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'barcodeScannerControllerProvider';
+}
+
+/// See also [BarcodeScannerController].
+class BarcodeScannerControllerProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<BarcodeScannerController,
+        List<Barcode>> {
+  /// See also [BarcodeScannerController].
+  BarcodeScannerControllerProvider(
+    String filePath,
+  ) : this._internal(
+          () => BarcodeScannerController()..filePath = filePath,
+          from: barcodeScannerControllerProvider,
+          name: r'barcodeScannerControllerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$barcodeScannerControllerHash,
+          dependencies: BarcodeScannerControllerFamily._dependencies,
+          allTransitiveDependencies:
+              BarcodeScannerControllerFamily._allTransitiveDependencies,
+          filePath: filePath,
+        );
+
+  BarcodeScannerControllerProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.filePath,
+  }) : super.internal();
+
+  final String filePath;
+
+  @override
+  FutureOr<List<Barcode>> runNotifierBuild(
+    covariant BarcodeScannerController notifier,
+  ) {
+    return notifier.build(
+      filePath,
+    );
+  }
+
+  @override
+  Override overrideWith(BarcodeScannerController Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: BarcodeScannerControllerProvider._internal(
+        () => create()..filePath = filePath,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        filePath: filePath,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeAsyncNotifierProviderElement<BarcodeScannerController,
+      List<Barcode>> createElement() {
+    return _BarcodeScannerControllerProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is BarcodeScannerControllerProvider &&
+        other.filePath == filePath;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, filePath.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin BarcodeScannerControllerRef
+    on AutoDisposeAsyncNotifierProviderRef<List<Barcode>> {
+  /// The parameter `filePath` of this provider.
+  String get filePath;
+}
+
+class _BarcodeScannerControllerProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<BarcodeScannerController,
+        List<Barcode>> with BarcodeScannerControllerRef {
+  _BarcodeScannerControllerProviderElement(super.provider);
+
+  @override
+  String get filePath => (origin as BarcodeScannerControllerProvider).filePath;
+}
+
+String _$selectedScanTypeHash() => r'6c877432cf830470733e205f621d4890d80fc88a';
+
+/// See also [SelectedScanType].
+@ProviderFor(SelectedScanType)
+final selectedScanTypeProvider =
+    NotifierProvider<SelectedScanType, ScanType>.internal(
+  SelectedScanType.new,
+  name: r'selectedScanTypeProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$selectedScanTypeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SelectedScanType = Notifier<ScanType>;
 String _$imagePickerControllerHash() =>
-    r'e10eebcabe3205ac8b1abd16a8397b4b76e7c6ee';
+    r'77cc2fa82755591b5f560654a6f520f912cffd21';
 
 /// See also [ImagePickerController].
 @ProviderFor(ImagePickerController)

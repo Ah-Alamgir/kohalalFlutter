@@ -4,10 +4,12 @@ class JoinBtn {
   final IconData? icon;
   final String? label;
   final VoidCallback? onPressed;
+  final Color? foregroundColor;
 
   JoinBtn({
     this.icon,
     this.label,
+    this.foregroundColor,
     required this.onPressed,
   }) : assert(
           icon != null || label != null,
@@ -20,6 +22,8 @@ class JoinBtns extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final Color? dividerColor;
   final double? dividerWidth;
+  final Color? color;
+  final double? height;
 
   const JoinBtns({
     super.key,
@@ -27,6 +31,8 @@ class JoinBtns extends StatelessWidget {
     this.mainAxisAlignment = MainAxisAlignment.spaceEvenly,
     this.dividerColor,
     this.dividerWidth = 1.0,
+    this.color,
+    this.height,
   });
 
   @override
@@ -36,8 +42,9 @@ class JoinBtns extends StatelessWidget {
     return Card(
       clipBehavior: Clip.hardEdge,
       elevation: .6,
+      color: color ?? Theme.of(context).cardColor,
       child: SizedBox(
-        height: btnHeight,
+        height: height ?? btnHeight,
         child: Row(
           mainAxisAlignment: mainAxisAlignment,
           children: buttons.expand((button) {
@@ -54,15 +61,20 @@ class JoinBtns extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       textBaseline: TextBaseline.alphabetic,
                       children: [
-                        if (button.icon != null) Icon(button.icon),
+                        if (button.icon != null)
+                          Icon(
+                            button.icon,
+                            color: button.foregroundColor,
+                          ),
                         const SizedBox(
                           width: 8.0,
                         ),
                         if (button.label != null)
                           Text(
                             button.label ?? "",
-                            style: const TextStyle(
+                            style: TextStyle(
                               // fontWeight: FontWeight.w600,
+                              color: button.foregroundColor,
                               fontSize: 15.0,
                             ),
                           ),
