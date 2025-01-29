@@ -13,7 +13,8 @@ FutureOr<XFile?> sharedImageFile(Ref ref) async {
   }
 
   try {
-    File file = await toFile(sharedImageUri); // Converting uri to file
+    // Converting uri to file
+    File file = await toFile(sharedImageUri); 
 
     return XFile(file.path);
   } on PlatformException {

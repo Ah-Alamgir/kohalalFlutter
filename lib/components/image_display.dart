@@ -11,7 +11,12 @@ import 'package:text_scanner/providers/providers.dart';
 
 class ImageDisplay extends HookConsumerWidget {
   final bool editable;
-  const ImageDisplay({super.key, this.editable = true});
+  final bool withRescan;
+  const ImageDisplay({
+    super.key,
+    this.editable = true,
+    this.withRescan = false,
+  });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncImageController = ref.watch(imagePickerControllerProvider);
@@ -105,6 +110,23 @@ class ImageDisplay extends HookConsumerWidget {
                           .croppyImage(cropResult);
                     },
                     icon: FluentIcons.crop_24_regular,
+                  ),
+                ],
+              ),
+            if (withRescan)
+              JoinBtns(
+                buttons: [
+                  JoinBtn(
+                    onPressed: asyncImageController.valueOrNull?.currentImage ==
+                            null
+                        ? null
+                        : () {
+                            ref.invalidate(
+                                barcodeScannerControllerProvider(image.path));
+                            ref.invalidate(
+                                textRecControllerProvider(image.path));
+                          },
+                    label: "Rescan",
                   ),
                 ],
               ),
@@ -227,7 +249,7 @@ class ImageHistoryDisplay extends HookConsumerWidget {
                                   Text(
                                     isOriginal
                                         ? 'Original'
-                                        : 'Version ${index}',
+                                        : 'Version $index',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
