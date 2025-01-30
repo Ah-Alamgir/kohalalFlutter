@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:croppy/croppy.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class RotationSlider extends StatefulWidget {
+class RotationSlider extends HookWidget {
   const RotationSlider({
     super.key,
     required this.controller,
@@ -13,42 +14,6 @@ class RotationSlider extends StatefulWidget {
   final CroppableImageController controller;
   final Color? color;
   final Color? activeColor;
-
-  @override
-  State<RotationSlider> createState() => _RotationSliderState();
-}
-
-class _RotationSliderState extends State<RotationSlider> {
-  double _width = 0.0;
-  DragStartDetails? _dragStartDetails;
-  double? _dragStartValue;
-
-  void _onPanStart(DragStartDetails details) {
-    _dragStartDetails = details;
-    _dragStartValue = widget.controller.rotationZNotifier.value;
-    widget.controller.onStraightenStart();
-
-    setState(() {});
-  }
-
-  void _onPanUpdate(DragUpdateDetails details) {
-    final delta = details.globalPosition - _dragStartDetails!.globalPosition;
-    final dx = delta.dx;
-
-    // TODO: Change this so that "zero" has more width
-    var value = _dragStartValue! + (-dx / _width) * ((pi / 4) * 2);
-    value = value.clamp(-pi / 4, pi / 4);
-
-    widget.controller.onStraighten(angleRad: value);
-  }
-
-  void _onPanEnd(DragEndDetails details) {
-    _dragStartDetails = null;
-    _dragStartValue = null;
-    widget.controller.onStraightenEnd();
-
-    setState(() {});
-  }
 
   double _computeDegreeSignWidth(BuildContext context, TextStyle? style) {
     final painter = TextPainter(
@@ -64,26 +29,56 @@ class _RotationSliderState extends State<RotationSlider> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final color = widget.color ?? theme.colorScheme.onSurface;
-    final activeColor = widget.activeColor ?? theme.colorScheme.primary;
+    final resolvedColor = color ?? theme.colorScheme.onSurface;
+    final resolvedActiveColor = activeColor ?? theme.colorScheme.primary;
 
-    final labelStyle = theme.textTheme.labelMedium?.copyWith(color: color);
+    final labelStyle =
+        theme.textTheme.labelMedium?.copyWith(color: resolvedColor);
     final degreeSignWidth = _computeDegreeSignWidth(context, labelStyle);
+
+    final width = useState<double>(0.0);
+    final dragStartDetails = useState<DragStartDetails?>(null);
+    final dragStartValue = useState<double?>(null);
+
+    void onPanStart(DragStartDetails details) {
+      dragStartDetails.value = details;
+      dragStartValue.value = controller.rotationZNotifier.value;
+      controller.onStraightenStart();
+    }
+
+    void onPanUpdate(DragUpdateDetails details) {
+      final delta =
+          details.globalPosition - dragStartDetails.value!.globalPosition;
+      final dx = delta.dx;
+
+      // TODO: Change this so that "zero" has more width
+      double value =
+          dragStartValue.value! + (-dx / width.value) * ((pi / 4) * 2);
+      value = value.clamp(-pi / 4, pi / 4);
+
+      controller.onStraighten(angleRad: value);
+    }
+
+    void onPanEnd(DragEndDetails details) {
+      dragStartDetails.value = null;
+      dragStartValue.value = null;
+      controller.onStraightenEnd();
+    }
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onPanStart: _onPanStart,
-      onPanUpdate: _onPanUpdate,
-      onPanEnd: _onPanEnd,
+      onPanStart: onPanStart,
+      onPanUpdate: onPanUpdate,
+      onPanEnd: onPanEnd,
       child: ClipRect(
         child: ValueListenableBuilder(
-          valueListenable: widget.controller.rotationZNotifier,
+          valueListenable: controller.rotationZNotifier,
           builder: (context, rotationZ, child) {
             final value = rotationZ / (pi / 4);
 
             return LayoutBuilder(
               builder: (context, constraints) {
-                _width = constraints.maxWidth;
+                width.value = constraints.maxWidth;
 
                 return Column(
                   children: [
@@ -100,13 +95,13 @@ class _RotationSliderState extends State<RotationSlider> {
                     ),
                     const SizedBox(height: 4.0),
                     SizedBox(
-                      width: _width,
+                      width: width.value,
                       height: 16.0,
                       child: CustomPaint(
                         painter: _RotationSliderPainter(
                           value: value,
-                          baseColor: color,
-                          primaryColor: activeColor,
+                          baseColor: resolvedColor,
+                          primaryColor: resolvedActiveColor,
                         ),
                       ),
                     ),
