@@ -71,8 +71,11 @@ class HomePage extends HookConsumerWidget {
               height: 8.0,
             ),
             JoinBtns(
-              color: theme.colorScheme.primary,
+              color: asyncImageController.valueOrNull?.currentImage == null
+                  ? theme.disabledColor
+                  : theme.colorScheme.primary,
               height: theme.buttonTheme.height * 1.3,
+              textStyle: theme.textTheme.labelLarge,
               buttons: [
                 JoinBtn(
                   foregroundColor: theme.colorScheme.onPrimary,
@@ -90,64 +93,14 @@ class HomePage extends HookConsumerWidget {
                                 },
                               );
                             },
-                  icon: scanType.icon,
-                  label: "Scan",
+                  // icon: scanType.icon,
+                  label: "SCAN",
                 ),
               ],
             ),
           ],
         ),
       ),
-      // bottomNavigationBar: Container(
-      //   width: MediaQuery.of(context).size.width,
-      //   padding: const EdgeInsets.symmetric(
-      //     vertical: 8.0,
-      //     horizontal: 16.0,
-      //   ),
-      //   child: JoinBtns(
-      //     buttons: [
-      //       JoinBtn(
-      //         onPressed: () async {
-      //           await ref
-      //               .read(imagePickerControllerProvider.notifier)
-      //               .pickImage();
-      //         },
-      //         icon: FluentIcons.image_add_24_regular,
-      //         label: "Pick Image",
-      //       ),
-      //       JoinBtn(
-      //         onPressed: asyncImageController.valueOrNull?.currentImage == null
-      //             ? null
-      //             : () {
-      //                 context.beamToNamed(
-      //                   '/textrec',
-      //                   data: {
-      //                     'imagePath': asyncImageController
-      //                         .valueOrNull?.currentImage?.path
-      //                   },
-      //                 );
-      //               },
-      //         icon: FluentIcons.scan_text_24_regular,
-      //         label: "Scan",
-      //       ),
-      //       JoinBtn(
-      //         onPressed: asyncImageController.valueOrNull?.currentImage == null
-      //             ? null
-      //             : () {
-      //                 context.beamToNamed(
-      //                   '/barcodes',
-      //                   data: {
-      //                     'imagePath': asyncImageController
-      //                         .valueOrNull?.currentImage?.path
-      //                   },
-      //                 );
-      //               },
-      //         icon: FluentIcons.scan_text_24_regular,
-      //         label: "Scan2",
-      //       )
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
@@ -192,13 +145,19 @@ class ScanTypeSelector extends HookConsumerWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 ...[
-                  Icon(selectedType.icon),
+                  Icon(
+                    selectedType.icon,
+                    size: 20,
+                  ),
                   const SizedBox(width: 8),
                   Text(selectedType.label),
                 ],
                 // const SizedBox(width: 8),
                 const Spacer(),
-                const Icon(FluentIcons.chevron_up_down_16_regular),
+                const Icon(
+                  FluentIcons.chevron_up_down_16_regular,
+                  size: 15,
+                ),
               ],
             ),
           ),

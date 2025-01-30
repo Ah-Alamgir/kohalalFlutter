@@ -11,11 +11,9 @@ import 'package:text_scanner/providers/providers.dart';
 
 class ImageDisplay extends HookConsumerWidget {
   final bool editable;
-  final bool withRescan;
   const ImageDisplay({
     super.key,
     this.editable = true,
-    this.withRescan = false,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,12 +28,12 @@ class ImageDisplay extends HookConsumerWidget {
           return NoImageDisplay();
         }
 
-        return Column(
-          children: [
-            Expanded(
-              child: Card(
-                elevation: .5,
-                clipBehavior: Clip.hardEdge,
+        return Card(
+          elevation: .5,
+          clipBehavior: Clip.hardEdge,
+          child: Column(
+            children: [
+              Expanded(
                 child: SizedBox(
                   // height: MediaQuery.of(context).size.height * .6,
                   width: MediaQuery.of(context).size.width,
@@ -46,92 +44,84 @@ class ImageDisplay extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ),
-            if (editable)
-              JoinBtns(
-                dividerColor: theme.dividerColor.withValues(alpha: .3),
-                dividerWidth: .5,
-                buttons: [
-                  JoinBtn(
-                    onPressed: data.history.length <= 1
-                        ? null
-                        : () async {
-                            await showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              isDismissible: true,
-                              showDragHandle: true,
-                              backgroundColor: Theme.of(context).cardColor,
-                              builder: (context) {
-                                return ImageHistoryDisplay();
-                              },
-                            );
-                          },
-                    icon: FluentIcons.history_24_regular,
+              if (editable)
+                JoinBtns(
+                  dividerColor: theme.dividerColor.withValues(alpha: .3),
+                  padding: EdgeInsets.only(top: 8.0),
+                  dividerHeightRatio: .5,
+                  dividerWidth: .3,
+                  shape: Border(
+                    top: BorderSide(
+                      color: Theme.of(context).dividerColor,
+                    ),
                   ),
-                  JoinBtn(
-                    onPressed: () async {
-                      await ref
-                          .read(imagePickerControllerProvider.notifier)
-                          .revertToOriginal();
-                    },
-                    icon: FluentIcons.arrow_reset_24_regular,
-                  ),
-                  JoinBtn(
-                    onPressed: data.canUndo
-                        ? () async {
-                            await ref
-                                .read(imagePickerControllerProvider.notifier)
-                                .undo();
-                          }
-                        : null,
-                    icon: FluentIcons.arrow_undo_24_regular,
-                  ),
-                  JoinBtn(
-                    onPressed: data.canRedo
-                        ? () async {
-                            await ref
-                                .read(imagePickerControllerProvider.notifier)
-                                .redo();
-                          }
-                        : null,
-                    icon: FluentIcons.arrow_redo_24_regular,
-                  ),
-                  JoinBtn(
-                    onPressed: () async {
-                      final cropResult = await showImageCropper(
-                        context,
-                        FileImage(
-                          File(image.path),
-                        ), // Or any other image provider
-                      );
+                  buttons: [
+                    JoinBtn(
+                      onPressed: data.history.length <= 1
+                          ? null
+                          : () async {
+                              await showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                isDismissible: true,
+                                showDragHandle: true,
+                                backgroundColor: theme.cardColor,
+                                builder: (context) {
+                                  return ImageHistoryDisplay();
+                                },
+                              );
+                            },
+                      icon: FluentIcons.history_20_regular,
+                    ),
+                    JoinBtn(
+                      onPressed: data.history.length <= 1
+                          ? null
+                          : () async {
+                              await ref
+                                  .read(imagePickerControllerProvider.notifier)
+                                  .revertToOriginal();
+                            },
+                      icon: FluentIcons.arrow_reset_20_regular,
+                    ),
+                    JoinBtn(
+                      onPressed: data.canUndo
+                          ? () async {
+                              await ref
+                                  .read(imagePickerControllerProvider.notifier)
+                                  .undo();
+                            }
+                          : null,
+                      icon: FluentIcons.arrow_hook_up_left_20_regular,
+                    ),
+                    JoinBtn(
+                      onPressed: data.canRedo
+                          ? () async {
+                              await ref
+                                  .read(imagePickerControllerProvider.notifier)
+                                  .redo();
+                            }
+                          : null,
+                      icon: FluentIcons.arrow_hook_up_right_20_regular,
+                    ),
+                    JoinBtn(
+                      onPressed: () async {
+                        final cropResult = await showImageCropper(
+                          context,
+                          FileImage(
+                            File(image.path),
+                          ), // Or any other image provider
+                        );
 
-                      await ref
-                          .read(imagePickerControllerProvider.notifier)
-                          .croppyImage(cropResult);
-                    },
-                    icon: FluentIcons.crop_24_regular,
-                  ),
-                ],
-              ),
-            if (withRescan)
-              JoinBtns(
-                buttons: [
-                  JoinBtn(
-                    onPressed: asyncImageController.valueOrNull?.currentImage ==
-                            null
-                        ? null
-                        : () {
-                            ref.invalidate(
-                                barcodeScannerControllerProvider(image.path));
-                            ref.invalidate(
-                                textRecControllerProvider(image.path));
-                          },
-                    label: "Rescan",
-                  ),
-                ],
-              ),
-          ],
+                        await ref
+                            .read(imagePickerControllerProvider.notifier)
+                            .croppyImage(cropResult);
+                      },
+                      icon: FluentIcons.crop_20_regular,
+                    ),
+                  ],
+                ),
+            ],
+          ),
         );
       },
       error: (error, stackTrace) {

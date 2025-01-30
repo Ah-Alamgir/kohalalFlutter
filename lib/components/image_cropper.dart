@@ -6,11 +6,6 @@ import 'package:text_scanner/components/common/join_btns.dart';
 import 'rotation_slider.dart';
 
 class ImageCropper extends StatelessWidget {
-  final ImageProvider imageProvider;
-  final CroppableImageData? initialData;
-  final Object? heroTag;
-  final Future<CropImageResult> Function(CropImageResult)? onCropped;
-
   const ImageCropper({
     super.key,
     required this.imageProvider,
@@ -18,6 +13,11 @@ class ImageCropper extends StatelessWidget {
     this.heroTag,
     this.onCropped,
   });
+  
+  final ImageProvider imageProvider;
+  final CroppableImageData? initialData;
+  final Object? heroTag;
+  final Future<CropImageResult> Function(CropImageResult)? onCropped;
 
   @override
   Widget build(BuildContext context) {

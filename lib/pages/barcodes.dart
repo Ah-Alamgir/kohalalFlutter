@@ -1,16 +1,10 @@
-
-import 'package:beamer/beamer.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:text_scanner/components/common/error_view.dart';
-import 'package:text_scanner/components/common/join_btns.dart';
-import 'package:text_scanner/components/image_display.dart';
-import 'package:text_scanner/hooks/undo_history.dart';
+import 'package:text_scanner/components/text_results_display.dart';
+import 'package:text_scanner/pages/image_scan_results.dart';
 import 'package:text_scanner/providers/providers.dart';
 
 class BarcodesPage extends HookConsumerWidget {
@@ -22,80 +16,35 @@ class BarcodesPage extends HookConsumerWidget {
     final asyncBarcodesController =
         ref.watch(barcodeScannerControllerProvider(imagePath));
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          leading: IconButton(
-            onPressed: () {
-              if (context.canBeamBack) {
-                context.beamBack();
-              }
-            },
-            icon: const Icon(
-              FluentIcons.arrow_left_24_regular,
+    return ImageScanResultsPage(
+      imagePath: imagePath,
+      scanResults: Column(
+        children: [
+          Expanded(
+            child: asyncBarcodesController.when(
+              data: (data) {
+                if (data.length == 1) {
+                  return BarcodeView(
+                    barcode: data.first,
+                  );
+                }
+
+                return BarcodesPageView(
+                  barcodes: data,
+                );
+              },
+              error: (error, stackTrace) {
+                return AsyncErrorView(
+                  error: error,
+                  stackTrace: stackTrace,
+                );
+              },
+              loading: () => const Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
           ),
-          bottom: const TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(
-                  FluentIcons.scan_text_24_regular,
-                ),
-              ),
-              Tab(
-                icon: Icon(
-                  FluentIcons.image_24_regular,
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-          ).copyWith(
-            top: 16.0,
-            bottom: 16.0,
-          ),
-          child: TabBarView(
-            children: [
-              Column(
-                children: [
-                  Expanded(
-                    child: asyncBarcodesController.when(
-                      data: (data) {
-                        if (data.length == 1) {
-                          return BarcodeView(
-                            barcode: data.first,
-                          );
-                        }
-
-                        return BarcodesPageView(
-                          barcodes: data,
-                        );
-                      },
-                      error: (error, stackTrace) {
-                        return AsyncErrorView(
-                          error: error,
-                          stackTrace: stackTrace,
-                        );
-                      },
-                      loading: () => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const ImageDisplay(
-                editable: false,
-                withRescan: true,
-              ),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }
@@ -163,80 +112,11 @@ class BarcodeView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textController = useTextEditingController(
+
+    return TextResultsDisplay(
       text: barcode.displayValue ?? barcode.rawValue,
     );
-    final undoController = useUndoHistoryController();
 
-    return Column(
-      children: [
-        JoinBtns(
-          buttons: [
-            JoinBtn(
-              onPressed: undoController.undo,
-              icon: FluentIcons.arrow_undo_24_regular,
-              // label: 'Undo',
-            ),
-            JoinBtn(
-              onPressed: undoController.redo,
-              icon: FluentIcons.arrow_redo_24_regular,
-              // label: 'Redo',
-            ),
-          ],
-        ),
-        Expanded(
-          child: Card(
-            elevation: .5,
-            clipBehavior: Clip.hardEdge,
-            child: Container(
-              // height: MediaQuery.of(context).size.height * .6,
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: textController,
-                undoController: undoController,
-                maxLines: null,
-                decoration: const InputDecoration(
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
-            ),
-          ),
-        ),
-        JoinBtns(
-          buttons: [
-            JoinBtn(
-              onPressed: () async {
-                final result = await Share.share(
-                  textController.text,
-                );
-
-                if (result.status == ShareResultStatus.success) {
-                  debugPrint('Shared successfully');
-                }
-              },
-              icon: FluentIcons.share_24_regular,
-            ),
-            JoinBtn(
-              onPressed: () {
-                Clipboard.setData(
-                  ClipboardData(
-                    text: textController.text,
-                  ),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Text copied to clipboard'),
-                  ),
-                );
-              },
-              icon: FluentIcons.copy_24_regular,
-            ),
-          ],
-        )
-      ],
-    );
   }
 }
 
@@ -258,7 +138,7 @@ class PageViewIndicator extends HookWidget {
     this.indicatorColor = Colors.blue,
     this.backgroundColor = Colors.grey,
     this.indicatorHeight = 3.0,
-    this.backgroundHeight = 2.0,  // Thinner background indicators
+    this.backgroundHeight = 2.0, // Thinner background indicators
     this.direction = Axis.horizontal,
     this.spacing = 16.0,
     this.indicatorWidthFactor =

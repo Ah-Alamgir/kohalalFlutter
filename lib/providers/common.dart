@@ -38,9 +38,9 @@ enum ScanType {
   IconData get icon {
     switch (this) {
       case ScanType.text:
-        return FluentIcons.scan_type_24_regular;
+        return FluentIcons.scan_type_20_regular;
       case ScanType.barcode:
-        return FluentIcons.qr_code_24_regular;
+        return FluentIcons.qr_code_20_regular;
     }
   }
 }
