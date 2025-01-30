@@ -1,5 +1,3 @@
-library providers;
-
 import 'dart:io';
 import 'dart:ui' as ui;
 

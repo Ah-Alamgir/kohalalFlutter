@@ -269,7 +269,7 @@ class ScanTypePicker extends HookConsumerWidget {
                       border: Border.all(
                         color: isSelected
                             ? theme.colorScheme.primary
-                            : theme.colorScheme.outline.withOpacity(0.3),
+                            : theme.colorScheme.outline.withValues(alpha: 0.3),
                         width: isSelected ? 1.3 : .3,
                       ),
                       borderRadius: BorderRadius.circular(12),

@@ -20,6 +20,7 @@ class ImageDisplay extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncImageController = ref.watch(imagePickerControllerProvider);
+    final theme = Theme.of(context);
 
     return asyncImageController.when(
       data: (data) {
@@ -48,7 +49,7 @@ class ImageDisplay extends HookConsumerWidget {
             ),
             if (editable)
               JoinBtns(
-                dividerColor: Theme.of(context).dividerColor.withOpacity(.3),
+                dividerColor: theme.dividerColor.withValues(alpha: .3),
                 dividerWidth: .5,
                 buttons: [
                   JoinBtn(
@@ -218,7 +219,7 @@ class ImageHistoryDisplay extends HookConsumerWidget {
                           border: Border.all(
                             color: isSelected
                                 ? Theme.of(context).colorScheme.primary
-                                : Colors.grey.withOpacity(0.3),
+                                : Colors.grey.withValues(alpha: 0.3),
                             width: isSelected ? 2 : 1,
                           ),
                           borderRadius: BorderRadius.circular(12),
@@ -247,9 +248,7 @@ class ImageHistoryDisplay extends HookConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    isOriginal
-                                        ? 'Original'
-                                        : 'Version $index',
+                                    isOriginal ? 'Original' : 'Version $index',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -379,7 +378,8 @@ class NoImageDisplay extends ConsumerWidget {
                 width: MediaQuery.of(context).size.width,
                 child: Icon(
                   FluentIcons.image_add_24_regular,
-                  color: Theme.of(context).iconTheme.color?.withOpacity(.3),
+                  color:
+                      Theme.of(context).iconTheme.color?.withValues(alpha: .3),
                   size: MediaQuery.of(context).size.shortestSide * .4,
                 ),
               ),

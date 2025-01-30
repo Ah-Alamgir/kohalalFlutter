@@ -64,7 +64,7 @@ class _RotationSliderState extends State<RotationSlider> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final color = widget.color ?? theme.colorScheme.onBackground;
+    final color = widget.color ?? theme.colorScheme.onSurface;
     final activeColor = widget.activeColor ?? theme.colorScheme.primary;
 
     final labelStyle = theme.textTheme.labelMedium?.copyWith(color: color);
@@ -176,7 +176,7 @@ class _RotationSliderPainter extends CustomPainter {
       final color = isInValueRange ? primaryColor : baseColor;
 
       final paint = Paint()
-        ..color = color.withOpacity(color.opacity * opacity)
+        ..color = color.withValues(alpha: color.a * opacity)
         ..style = _paint.style
         ..strokeWidth = _paint.strokeWidth;
 

@@ -88,7 +88,7 @@ class JoinBtns extends StatelessWidget {
                   width: dividerWidth,
                   height: btnHeight * .5,
                   color: dividerColor ??
-                      Theme.of(context).dividerColor.withOpacity(.5),
+                      Theme.of(context).dividerColor.withValues(alpha: .5),
                 ),
             ];
           }).toList(),
