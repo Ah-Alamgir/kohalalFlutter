@@ -6,7 +6,7 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerDelegateHash() => r'90bc167c4e525a04a71d4e7cbb7a591423a9cf22';
+String _$routerDelegateHash() => r'e6c781bdfc3a0c55c18e565e1ae8d28aba267054';
 
 /// See also [routerDelegate].
 @ProviderFor(routerDelegate)
@@ -384,9 +384,10 @@ final imagePickerControllerProvider =
 );
 
 typedef _$ImagePickerController = AsyncNotifier<ImagePickerState>;
-String _$textRecControllerHash() => r'b08693782d6223104234ca026df5ef86df2166fc';
+String _$textRecognitionControllerHash() =>
+    r'fa19226a48ebc6cbea3aa957720eca4a5726c7ea';
 
-abstract class _$TextRecController
+abstract class _$TextRecognitionController
     extends BuildlessAutoDisposeAsyncNotifier<String> {
   late final String filePath;
 
@@ -395,27 +396,27 @@ abstract class _$TextRecController
   );
 }
 
-/// See also [TextRecController].
-@ProviderFor(TextRecController)
-const textRecControllerProvider = TextRecControllerFamily();
+/// See also [TextRecognitionController].
+@ProviderFor(TextRecognitionController)
+const textRecognitionControllerProvider = TextRecognitionControllerFamily();
 
-/// See also [TextRecController].
-class TextRecControllerFamily extends Family<AsyncValue<String>> {
-  /// See also [TextRecController].
-  const TextRecControllerFamily();
+/// See also [TextRecognitionController].
+class TextRecognitionControllerFamily extends Family<AsyncValue<String>> {
+  /// See also [TextRecognitionController].
+  const TextRecognitionControllerFamily();
 
-  /// See also [TextRecController].
-  TextRecControllerProvider call(
+  /// See also [TextRecognitionController].
+  TextRecognitionControllerProvider call(
     String filePath,
   ) {
-    return TextRecControllerProvider(
+    return TextRecognitionControllerProvider(
       filePath,
     );
   }
 
   @override
-  TextRecControllerProvider getProviderOverride(
-    covariant TextRecControllerProvider provider,
+  TextRecognitionControllerProvider getProviderOverride(
+    covariant TextRecognitionControllerProvider provider,
   ) {
     return call(
       provider.filePath,
@@ -434,30 +435,31 @@ class TextRecControllerFamily extends Family<AsyncValue<String>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'textRecControllerProvider';
+  String? get name => r'textRecognitionControllerProvider';
 }
 
-/// See also [TextRecController].
-class TextRecControllerProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<TextRecController, String> {
-  /// See also [TextRecController].
-  TextRecControllerProvider(
+/// See also [TextRecognitionController].
+class TextRecognitionControllerProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<TextRecognitionController,
+        String> {
+  /// See also [TextRecognitionController].
+  TextRecognitionControllerProvider(
     String filePath,
   ) : this._internal(
-          () => TextRecController()..filePath = filePath,
-          from: textRecControllerProvider,
-          name: r'textRecControllerProvider',
+          () => TextRecognitionController()..filePath = filePath,
+          from: textRecognitionControllerProvider,
+          name: r'textRecognitionControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$textRecControllerHash,
-          dependencies: TextRecControllerFamily._dependencies,
+                  : _$textRecognitionControllerHash,
+          dependencies: TextRecognitionControllerFamily._dependencies,
           allTransitiveDependencies:
-              TextRecControllerFamily._allTransitiveDependencies,
+              TextRecognitionControllerFamily._allTransitiveDependencies,
           filePath: filePath,
         );
 
-  TextRecControllerProvider._internal(
+  TextRecognitionControllerProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -471,7 +473,7 @@ class TextRecControllerProvider
 
   @override
   FutureOr<String> runNotifierBuild(
-    covariant TextRecController notifier,
+    covariant TextRecognitionController notifier,
   ) {
     return notifier.build(
       filePath,
@@ -479,10 +481,10 @@ class TextRecControllerProvider
   }
 
   @override
-  Override overrideWith(TextRecController Function() create) {
+  Override overrideWith(TextRecognitionController Function() create) {
     return ProviderOverride(
       origin: this,
-      override: TextRecControllerProvider._internal(
+      override: TextRecognitionControllerProvider._internal(
         () => create()..filePath = filePath,
         from: from,
         name: null,
@@ -495,14 +497,15 @@ class TextRecControllerProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<TextRecController, String>
+  AutoDisposeAsyncNotifierProviderElement<TextRecognitionController, String>
       createElement() {
-    return _TextRecControllerProviderElement(this);
+    return _TextRecognitionControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is TextRecControllerProvider && other.filePath == filePath;
+    return other is TextRecognitionControllerProvider &&
+        other.filePath == filePath;
   }
 
   @override
@@ -516,18 +519,19 @@ class TextRecControllerProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin TextRecControllerRef on AutoDisposeAsyncNotifierProviderRef<String> {
+mixin TextRecognitionControllerRef
+    on AutoDisposeAsyncNotifierProviderRef<String> {
   /// The parameter `filePath` of this provider.
   String get filePath;
 }
 
-class _TextRecControllerProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<TextRecController, String>
-    with TextRecControllerRef {
-  _TextRecControllerProviderElement(super.provider);
+class _TextRecognitionControllerProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<TextRecognitionController,
+        String> with TextRecognitionControllerRef {
+  _TextRecognitionControllerProviderElement(super.provider);
 
   @override
-  String get filePath => (origin as TextRecControllerProvider).filePath;
+  String get filePath => (origin as TextRecognitionControllerProvider).filePath;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

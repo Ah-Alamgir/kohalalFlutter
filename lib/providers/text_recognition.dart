@@ -1,7 +1,7 @@
 part of 'providers.dart';
 
 @riverpod
-class TextRecController extends _$TextRecController {
+class TextRecognitionController extends _$TextRecognitionController {
   @override
   FutureOr<String> build(String filePath) {
     return getRecText(filePath);
@@ -19,7 +19,6 @@ class TextRecController extends _$TextRecController {
     final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
     final RecognizedText recognizedText =
         await textRecognizer.processImage(inputImage);
-    
 
     String text = recognizedText.text;
 

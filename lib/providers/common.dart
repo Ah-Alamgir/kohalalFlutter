@@ -6,7 +6,7 @@ Raw<BeamerDelegate> routerDelegate(Ref ref) {
     locationBuilder: BeamerLocationBuilder(
       beamLocations: [
         HomeLocation(),
-        TextRecLocation(),
+        TextRecognitionLocation(),
         BarcodesLocation(),
       ],
     ).call,

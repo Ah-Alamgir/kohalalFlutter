@@ -1,8 +1,8 @@
 part of 'locations.dart';
 
-class TextRecLocation extends BeamLocation<BeamState> {
+class TextRecognitionLocation extends BeamLocation<BeamState> {
   @override
-  List<String> get pathPatterns => ['/textrec'];
+  List<String> get pathPatterns => ['/textrecognition'];
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
@@ -24,7 +24,7 @@ class TextRecLocation extends BeamLocation<BeamState> {
       BeamPage(
         key: ValueKey(imagePath),
         title: 'Text Recognition',
-        child: TextRecPage(imagePath),
+        child: TextRecognitionPage(imagePath),
       ),
     );
 

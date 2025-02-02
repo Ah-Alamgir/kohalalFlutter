@@ -5,15 +5,14 @@ import 'package:text_scanner/components/text_results_display.dart';
 import 'package:text_scanner/pages/image_scan_results.dart';
 import 'package:text_scanner/providers/providers.dart';
 
-
-class TextRecPage extends HookConsumerWidget {
-  const TextRecPage(this.imagePath, {super.key});
+class TextRecognitionPage extends HookConsumerWidget {
+  const TextRecognitionPage(this.imagePath, {super.key});
   final String imagePath;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncTextRecController =
-        ref.watch(textRecControllerProvider(imagePath));
+        ref.watch(textRecognitionControllerProvider(imagePath));
 
     return ImageScanResultsPage(
       imagePath: imagePath,
@@ -34,6 +33,5 @@ class TextRecPage extends HookConsumerWidget {
         ),
       ),
     );
-
   }
 }

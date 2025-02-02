@@ -22,4 +22,4 @@ part 'barcode_scanner.dart';
 part 'common.dart';
 part 'providers.g.dart';
 part 'images.dart';
-part 'text_rec.dart';
+part 'text_recognition.dart';

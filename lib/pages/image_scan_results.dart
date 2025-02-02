@@ -75,7 +75,7 @@ class ImageScanResultsPage extends ConsumerWidget {
                         onPressed: () {
                           ref.invalidate(
                               barcodeScannerControllerProvider(imagePath));
-                          ref.invalidate(textRecControllerProvider(imagePath));
+                          ref.invalidate(textRecognitionControllerProvider(imagePath));
                         },
                         label: "Rescan",
                       ),
