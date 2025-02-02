@@ -44,30 +44,36 @@ class TextResultsDisplay extends HookConsumerWidget {
                     ),
                   ),
                 ),
-                JoinBtns(
-                  shape: Border(
-                      top: BorderSide(
-                    color: Theme.of(context).dividerColor,
-                  )),
-                  padding: EdgeInsets.only(top: 8.0),
-                  dividerHeightRatio: .8,
-                  dividerWidth: .3,
-                  buttons: [
-                    JoinBtn(
-                      onPressed: undoController.value.canUndo
-                          ? undoController.undo
-                          : null,
-                      icon: FluentIcons.arrow_hook_up_left_20_regular,
-                      // label: 'Undo',
-                    ),
-                    JoinBtn(
-                      onPressed: undoController.value.canUndo
-                          ? undoController.redo
-                          : null,
-                      icon: FluentIcons.arrow_hook_up_right_20_regular,
-                      // label: 'Redo',
-                    ),
-                  ],
+                ValueListenableBuilder(
+                  valueListenable: undoController,
+                  builder: (
+                    BuildContext context,
+                    UndoHistoryValue value,
+                    Widget? child,
+                  ) {
+                    return JoinBtns(
+                      shape: Border(
+                        top: BorderSide(
+                          color: Theme.of(context).dividerColor,
+                        ),
+                      ),
+                      padding: EdgeInsets.only(top: 8.0),
+                      dividerHeightRatio: .8,
+                      dividerWidth: .3,
+                      buttons: [
+                        JoinBtn(
+                          onPressed: value.canUndo ? undoController.undo : null,
+                          icon: FluentIcons.arrow_hook_up_left_20_regular,
+                          // label: 'Undo',
+                        ),
+                        JoinBtn(
+                          onPressed: value.canRedo ? undoController.redo : null,
+                          icon: FluentIcons.arrow_hook_up_right_20_regular,
+                          // label: 'Redo',
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),
@@ -85,7 +91,7 @@ class TextResultsDisplay extends HookConsumerWidget {
                   debugPrint('Shared successfully');
                 }
               },
-              icon: FluentIcons.share_24_regular,
+              icon: FluentIcons.share_20_regular,
               label: "Share",
             ),
             JoinBtn(
@@ -101,7 +107,7 @@ class TextResultsDisplay extends HookConsumerWidget {
                   ),
                 );
               },
-              icon: FluentIcons.copy_24_regular,
+              icon: FluentIcons.copy_20_regular,
               label: "Copy",
             ),
           ],
