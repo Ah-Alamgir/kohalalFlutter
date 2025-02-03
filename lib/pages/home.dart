@@ -36,6 +36,13 @@ class HomePage extends HookConsumerWidget {
             ),
             if (asyncImageController.valueOrNull?.currentImage != null)
               JoinBtns(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: theme.primaryColor.withValues(alpha: .4),
+                    width: 1.2
+                  ),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
                 buttons: [
                   JoinBtn(
                     onPressed: () async {
@@ -43,7 +50,7 @@ class HomePage extends HookConsumerWidget {
                           .read(imagePickerControllerProvider.notifier)
                           .pickImage();
                     },
-                    icon: FluentIcons.image_add_24_regular,
+                    icon: FluentIcons.image_add_20_regular,
                     label: "Choose Image",
                   ),
                 ],
