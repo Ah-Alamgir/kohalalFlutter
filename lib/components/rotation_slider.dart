@@ -64,7 +64,7 @@ class _RotationSliderState extends State<RotationSlider> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final color = widget.color ?? theme.colorScheme.onBackground;
+    final color = widget.color ?? theme.colorScheme.onSurface;
     final activeColor = widget.activeColor ?? theme.colorScheme.primary;
 
     final labelStyle = theme.textTheme.labelMedium?.copyWith(color: color);
@@ -142,18 +142,18 @@ class _RotationSliderPainter extends CustomPainter {
 
     final center = size.center(Offset(-size.width / 2, 0.0) * value);
 
-    for (var i = -45; i <= 45; i++) {
+    for (int i = -45; i <= 45; i++) {
       if (i % 2 != 0) continue;
       if (((i / 45) - value).abs() < 1 / 135) continue;
 
       final isHighlighted = i % 20 == 0;
       final x = i * (size.width / 45) / 2;
-      final _paint = dividerPaint;
+      final inheritedPaint = dividerPaint;
 
       final absoluteX = center.dx + x;
       final centerDiff = ((size.width / 2) - absoluteX).abs();
 
-      var opacity = 1.0 - (centerDiff.abs() / (size.width / 2)).clamp(0, 1);
+      double opacity = 1.0 - (centerDiff.abs() / (size.width / 2)).clamp(0, 1);
       opacity = pow(opacity, 0.35).toDouble();
 
       if (!isHighlighted) {
@@ -176,20 +176,20 @@ class _RotationSliderPainter extends CustomPainter {
       final color = isInValueRange ? primaryColor : baseColor;
 
       final paint = Paint()
-        ..color = color.withOpacity(color.opacity * opacity)
-        ..style = _paint.style
-        ..strokeWidth = _paint.strokeWidth;
+        ..color = color.withValues(alpha: color.a * opacity)
+        ..style = inheritedPaint.style
+        ..strokeWidth = inheritedPaint.strokeWidth;
 
       canvas.drawLine(
         Offset(center.dx + x, size.height / 3),
-        Offset(center.dx + x, size.height),
+        Offset(center.dx + x, isHighlighted ? size.height * 1.3 : size.height),
         paint,
       );
     }
 
     canvas.drawLine(
       Offset(size.center(Offset.zero).dx, 0),
-      Offset(size.center(Offset.zero).dx, size.height),
+      Offset(size.center(Offset.zero).dx, size.height * 1.5),
       Paint()
         ..color = value.abs() > epsilon ? primaryColor : baseColor
         ..style = PaintingStyle.stroke

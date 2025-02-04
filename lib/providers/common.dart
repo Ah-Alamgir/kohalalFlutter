@@ -6,7 +6,7 @@ Raw<BeamerDelegate> routerDelegate(Ref ref) {
     locationBuilder: BeamerLocationBuilder(
       beamLocations: [
         HomeLocation(),
-        TextRecLocation(),
+        TextRecognitionLocation(),
         BarcodesLocation(),
       ],
     ).call,
@@ -38,9 +38,9 @@ enum ScanType {
   IconData get icon {
     switch (this) {
       case ScanType.text:
-        return FluentIcons.scan_type_24_regular;
+        return FluentIcons.scan_type_20_regular;
       case ScanType.barcode:
-        return FluentIcons.qr_code_24_regular;
+        return FluentIcons.qr_code_20_regular;
     }
   }
 }
