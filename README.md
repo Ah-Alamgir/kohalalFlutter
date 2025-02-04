@@ -1,6 +1,8 @@
 # Text Scanner
 
-A Flutter-based Android application that utilizes Google's ML Kit for text recognition in images. The app allows users to pick an image from their gallery or receive images through the "Open With" menu and share menu. The scanned text can be further shared with others using the share functionality or copied to the clipboard.
+An android application that helps you quickly extract text from images and scan barcodes & QR codes.
+
+[Get the latest release](https://github.com/blackmonk13/text_scanner/releases/latest)
 
 ## Table of Contents
 
@@ -17,9 +19,10 @@ Text Scanner is an Android application built with Flutter that leverages the pow
 
 ## Screenshots <a name = "screenshots"></a>
 
-| ![screenshot1](screenshots/1.jpg) | ![screenshot2](screenshots/2.jpg) | ![screenshot3](screenshots/3.jpg) |
+| ![screenshot0](screenshots/0.jpg) | ![screenshot1](screenshots/1.jpg) | ![screenshot2](screenshots/2.jpg) |
 | --------------------------------- | --------------------------------- | --------------------------------- |
-
+| ![screenshot3](screenshots/3.jpg) | ![screenshot4](screenshots/4.jpg) | ![screenshot5](screenshots/5.jpg) |
+| ![screenshot6](screenshots/6.jpg) | ![screenshot7](screenshots/7.jpg) | ![screenshot8](screenshots/8.gif) |
 
 
 ## Getting Started <a name = "getting_started"></a>
